@@ -49,9 +49,7 @@ class App extends Component {
           <Route exact path='/' render={() => (
             <Instruments user={user} />
           )} />
-          <Route path='/instruments/:id' render={() => (
-            <Instrument user={user} />
-          )} />
+          <Route exact path="/instruments/:id" component={Instrument}/>
           <Route path='/sign-up' render={() => (
             <SignUp alert={this.alert} setUser={this.setUser} />
           )} />
