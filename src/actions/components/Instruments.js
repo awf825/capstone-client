@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import ListGroup from 'react-bootstrap/ListGroup'
-
 class Instruments extends Component {
   constructor () {
     super()
@@ -16,6 +15,7 @@ class Instruments extends Component {
     const response = await axios(`${apiUrl}/instruments`)
     this.setState({ instruments: response.data.instruments })
   }
+
   render () {
     const { user } = this.props
     const { instruments } = this.state
@@ -28,11 +28,10 @@ class Instruments extends Component {
         <ListGroup>
           {instruments.map((instrument, i) => (
             <ListGroup.Item key={i}>
-              <Link to={'instruments/' + instrument.id}>{instrument.name}</Link>
+              <Link to={'/instruments/' + instrument.id}>{instrument.name}</Link>
             </ListGroup.Item>))}
         </ListGroup>
       </Fragment>
-
     )
   }
 }

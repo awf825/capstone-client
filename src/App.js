@@ -3,12 +3,13 @@ import './App.scss'
 import { Route } from 'react-router-dom'
 
 import AuthenticatedRoute from './auth/components/AuthenticatedRoute'
-import Header from './header/Header'
+import Header from './shared/Header'
 import SignUp from './auth/components/SignUp'
 import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 import Instruments from './actions/components/Instruments'
+import Instrument from './actions/components/Instrument'
 import CreateInstrument from './actions/components/CreateInstrument'
 
 import Alert from 'react-bootstrap/Alert'
@@ -47,6 +48,9 @@ class App extends Component {
         <main className="container">
           <Route exact path='/' render={() => (
             <Instruments user={user} />
+          )} />
+          <Route path='/instruments/:id' render={() => (
+            <Instrument user={user} />
           )} />
           <Route path='/sign-up' render={() => (
             <SignUp alert={this.alert} setUser={this.setUser} />

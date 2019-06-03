@@ -106,7 +106,7 @@ class CreateInstrument extends Component {
           />
         </Form.Group>
         <Form.Group controlId="sale">
-          <Form.Label>Sell</Form.Label>
+          <Form.Label>Sale</Form.Label>
           <Form.Control
             type="boolean"
             placeholder="For Sale?"
@@ -119,10 +119,10 @@ class CreateInstrument extends Component {
         <Form.Group controlId="price">
           <Form.Label>Price</Form.Label>
           <Form.Control
-            type="text"
+            type="string"
             placeholder="Price"
             required
-            name="rent"
+            name="price"
             value={this.price}
             onChange={this.handleChange}
           />
@@ -130,10 +130,10 @@ class CreateInstrument extends Component {
         <Form.Group controlId="rate">
           <Form.Label>Rate</Form.Label>
           <Form.Control
-            type="text"
+            type="integer"
             placeholder="Rate"
             required
-            name="rent"
+            name="rate"
             value={this.rate}
             onChange={this.handleChange}
           />
