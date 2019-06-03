@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import ListGroup from 'react-bootstrap/ListGroup'
@@ -25,13 +26,9 @@ class Instruments extends Component {
           {!user && <p className="m-0">Sign in to Post Items</p>}
         </div>
         <ListGroup>
-          {user && instruments.map((instrument, i) => (
+          {instruments.map((instrument, i) => (
             <ListGroup.Item key={i}>
-              <h4>{instrument.name}</h4>
-            </ListGroup.Item>))}
-          {!user && instruments.map((instrument, i) => (
-            <ListGroup.Item key={i}>
-              <h4>{instrument.name}</h4>
+              <Link to={'instruments/' + instrument.id}>{instrument.name}</Link>
             </ListGroup.Item>))}
         </ListGroup>
       </Fragment>

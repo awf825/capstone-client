@@ -9,6 +9,7 @@ import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 import Instruments from './actions/components/Instruments'
+import CreateInstrument from './actions/components/CreateInstrument'
 
 import Alert from 'react-bootstrap/Alert'
 
@@ -52,6 +53,9 @@ class App extends Component {
           )} />
           <Route path='/sign-in' render={() => (
             <SignIn alert={this.alert} setUser={this.setUser} />
+          )} />
+          <AuthenticatedRoute user={user} path='/instruments' render={() => (
+            <CreateInstrument user={user} alert={this.alert} />
           )} />
           <AuthenticatedRoute user={user} path='/sign-out' render={() => (
             <SignOut alert={this.alert} clearUser={this.clearUser} user={user} />
