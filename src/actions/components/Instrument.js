@@ -7,12 +7,12 @@ class Instrument extends Component {
     super(props)
     this.state = {
       instrument: {
-        name: '',
-        description: '',
-        rent: null,
-        sale: null,
-        price: '',
-        rate: ''
+        name: this.props.match.params.name,
+        description: this.props.match.params.description,
+        rent: this.props.match.params.rent,
+        sale: this.props.match.params.sale,
+        price: this.props.match.params.price,
+        rate: this.props.match.params.rate
       }
     }
   }
@@ -24,9 +24,9 @@ class Instrument extends Component {
   }
 
   // onDelete = async id => {
-  //   await axios.delete(`${apiUrl}/movies/${id}`)
-  //   this.setState({ deleted: true })
-  // }
+  // // await axios.delete(`${apiUrl}/movies/${id}`)
+  // //   this.setState({ deleted: true })
+  // // }
 
   render () {
     const { instrument } = this.state
@@ -34,8 +34,8 @@ class Instrument extends Component {
       <Fragment>
         <p>{instrument.name}</p>
         <p>{instrument.description}</p>
-        <p>Is Item for Rent? {instrument.rent}</p>
-        <p>Is Item for Sale? {instrument.sale}</p>
+        <p>{instrument.rent}</p>
+        <p>{instrument.sale}</p>
         <p>Price: {instrument.price}</p>
         <p>Daily Rate: {instrument.rate}</p>
         <Link to='/'>Back to all items</Link>

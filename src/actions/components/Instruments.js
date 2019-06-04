@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import ListGroup from 'react-bootstrap/ListGroup'
+import Button from 'react-bootstrap/Button'
 class Instruments extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
       instruments: []
     }
@@ -14,6 +15,26 @@ class Instruments extends Component {
   async componentDidMount () {
     const response = await axios(`${apiUrl}/instruments`)
     this.setState({ instruments: response.data.instruments })
+  }
+
+  handleDelete = (id) => {
+    axios({
+      url: `${apiUrl}/instruments/${id}`,
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Token token=${this.props.user.token}`
+      }
+    })
+      .then(() => {
+        axios(`${apiUrl}/instruments`)
+          .then(res => {
+            this.setState({ instruments: res.data.instruments })
+          })
+          .catch(error => {
+            console.error(error)
+            alert('Something went wrong, try again', 'danger')
+          })
+      })
   }
 
   render () {
@@ -26,9 +47,28 @@ class Instruments extends Component {
           {!user && <p className="m-0">Sign in to Post Items</p>}
         </div>
         <ListGroup>
-          {instruments.map((instrument, i) => (
+          {user && instruments.map((instrument, i) => (
             <ListGroup.Item key={i}>
-              <Link to={'/instruments/' + instrument.id}>{instrument.name}</Link>
+              <h4>{instrument.name}</h4>
+              <Button
+                variant="info"
+                href={'#instruments/' + instrument.id}>
+                Info
+              </Button>
+              <Button
+                variant="danger"
+                onClick={() => this.handleDelete(instrument.id)}>
+                Delete
+              </Button>
+              <Button
+                variant="secondary"
+                href={'#instruments/' + instrument.id + '/edit'}>
+                Update
+              </Button>
+            </ListGroup.Item>))}
+          {!user && instruments.map((instrument, i) => (
+            <ListGroup.Item key={i}>
+              <Link to={`/instruments/${instrument.id}`}>{instrument.name}</Link>
             </ListGroup.Item>))}
         </ListGroup>
       </Fragment>

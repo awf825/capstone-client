@@ -4,29 +4,34 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
-class CreateInstrument extends Component {
-  constructor () {
-    super()
+class EditInstrument extends Component {
+  constructor (props) {
+    super(props)
 
     this.state = {
-      instrument: {
-        name: '',
-        description: '',
-        rent: '',
-        sale: '',
-        price: '',
-        rate: ''
-      }
+      instrument: null
     }
   }
 
-  onCreateInstrument = event => {
-    event.preventDefault()
-
-    const { alert, history } = this.props
+  componentDidMount () {
     axios({
-      url: apiUrl + '/create-instrument',
-      method: 'POST',
+      url: `${apiUrl}/instruments/${this.props.match.params.id}`,
+      method: 'GET',
+      headers: {
+        'Authorization': `Token token=${this.props.user.token}`
+      }
+    })
+      .then(response => {
+        this.setState({ instrument: response.data.instrument })
+      })
+      .catch(error => console.error(error))
+  }
+
+  handleEdit = (event, id) => {
+    event.preventDefault()
+    axios({
+      url: `${apiUrl}/instruments/${id}/`,
+      method: 'PATCH',
       headers: {
         'Authorization': `Token token=${this.props.user.token}`
       },
@@ -41,16 +46,11 @@ class CreateInstrument extends Component {
         }
       }
     })
-      .then(() => alert(`You created ${this.state.name}`, 'success'))
-      .then(() => history.push('/'))
+      .then(() => alert(`You updated ${this.state.name}`, 'success'))
+      .then(() => this.props.history.push('/'))
       .catch(error => {
         console.error(error)
-        this.setState({ name: '',
-          description: '',
-          rent: null,
-          sale: null,
-          price: '',
-          rate: '' })
+        this.setState({ name: '', description: '', rent: '', sale: '', price: '', rate: '' })
         alert('Something went wrong, try again', 'danger')
       })
   }
@@ -62,16 +62,17 @@ class CreateInstrument extends Component {
   resetForm = () => this.setState({
     name: '',
     description: '',
-    rent: null,
-    sale: null,
+    rent: '',
+    sale: '',
     price: '',
     rate: ''
   })
 
   render () {
+    const { instrument } = this.state
     return (
-      <Form className='form' onSubmit={this.onCreateInstrument}>
-        <h3>Post:</h3>
+      <Form className='form' onSubmit={(e) => this.handleEdit(e, instrument.id)}>
+        <h3>Edit:</h3>
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -158,4 +159,4 @@ class CreateInstrument extends Component {
   }
 }
 
-export default withRouter(CreateInstrument)
+export default withRouter(EditInstrument)
