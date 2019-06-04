@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Button from 'react-bootstrap/Button'
+import messages from '../messages'
 class Instruments extends Component {
   constructor (props) {
     super(props)
@@ -18,11 +19,12 @@ class Instruments extends Component {
   }
 
   handleDelete = (id) => {
+    const { alert, user } = this.props
     axios({
       url: `${apiUrl}/instruments/${id}`,
       method: 'DELETE',
       headers: {
-        'Authorization': `Token token=${this.props.user.token}`
+        'Authorization': `Token token=${user.token}`
       }
     })
       .then(() => {
@@ -30,10 +32,11 @@ class Instruments extends Component {
           .then(res => {
             this.setState({ instruments: res.data.instruments })
           })
-          .catch(error => {
-            console.error(error)
-            alert('Something went wrong, try again', 'danger')
-          })
+          .then(() => alert(messages.deleteSuccess, 'success'))
+      })
+      .catch(error => {
+        console.error(error)
+        alert(messages.deleteFailure, 'danger')
       })
   }
 
@@ -76,4 +79,4 @@ class Instruments extends Component {
   }
 }
 
-export default Instruments
+export default withRouter(Instruments)

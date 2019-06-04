@@ -30,12 +30,13 @@ class Instrument extends Component {
 
   render () {
     const { instrument } = this.state
+    console.log('DATA', instrument.sale, instrument.rent)
     return (
       <Fragment>
         <p>{instrument.name}</p>
         <p>{instrument.description}</p>
-        <p>{instrument.rent}</p>
-        <p>{instrument.sale}</p>
+        <p>{instrument.rent && 'For Rent'}</p>
+        <p>{instrument.sale && 'For Sale'}</p>
         <p>Price: {instrument.price}</p>
         <p>Daily Rate: {instrument.rate}</p>
         <Link to='/'>Back to all items</Link>

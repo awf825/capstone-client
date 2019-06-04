@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
+import messages from '../messages'
 class EditInstrument extends Component {
   constructor (props) {
     super(props)
@@ -24,7 +25,7 @@ class EditInstrument extends Component {
       .then(response => {
         this.setState({ instrument: response.data.instrument })
       })
-      .catch(error => console.error(error))
+      .catch(alert(messages.updateFailure, 'danger'))
   }
 
   handleEdit = (event, id) => {
