@@ -23,11 +23,6 @@ class Instrument extends Component {
     this.setState({ instrument: response.data.instrument })
   }
 
-  // onDelete = async id => {
-  // // await axios.delete(`${apiUrl}/movies/${id}`)
-  // //   this.setState({ deleted: true })
-  // // }
-
   render () {
     const { instrument } = this.state
     console.log('DATA', instrument.sale, instrument.rent)
@@ -35,8 +30,8 @@ class Instrument extends Component {
       <Fragment>
         <p>{instrument.name}</p>
         <p>{instrument.description}</p>
-        <p>{instrument.rent && 'For Rent'}</p>
-        <p>{instrument.sale && 'For Sale'}</p>
+        <p>{instrument.rent === true && 'For Rent'}</p>
+        <p>{instrument.sale === true && 'For Sale'}</p>
         <p>Price: {instrument.price}</p>
         <p>Daily Rate: {instrument.rate}</p>
         <Link to='/'>Back to all items</Link>

@@ -65,7 +65,8 @@ class Instruments extends Component {
               </Button>
               <Button
                 variant="secondary"
-                href={'#instruments/' + instrument.id + '/edit'}>
+                href={'#instruments/' + instrument.id + '/edit'}
+              >
                 Update
               </Button>
             </ListGroup.Item>))}

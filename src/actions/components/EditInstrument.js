@@ -15,26 +15,31 @@ class EditInstrument extends Component {
   }
 
   componentDidMount () {
+    const { alert, user, match } = this.props
     axios({
-      url: `${apiUrl}/instruments/${this.props.match.params.id}`,
+      url: `${apiUrl}/instruments/${match.params.id}`,
       method: 'GET',
       headers: {
-        'Authorization': `Token token=${this.props.user.token}`
+        'Authorization': `Token token=${user.token}`
       }
     })
       .then(response => {
         this.setState({ instrument: response.data.instrument })
       })
-      .catch(alert(messages.updateFailure, 'danger'))
+      .catch(error => {
+        console.error(error)
+        alert(messages.updateFailure, 'danger')
+      })
   }
 
   handleEdit = (event, id) => {
     event.preventDefault()
+    const { alert, user } = this.props
     axios({
       url: `${apiUrl}/instruments/${id}/`,
       method: 'PATCH',
       headers: {
-        'Authorization': `Token token=${this.props.user.token}`
+        'Authorization': `Token token=${user.token}`
       },
       data: {
         instrument: {
