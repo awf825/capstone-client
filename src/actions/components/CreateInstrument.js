@@ -22,7 +22,7 @@ class CreateInstrument extends Component {
 
   onCreateInstrument = event => {
     event.preventDefault()
-
+    console.log(event.target.checked)
     const { alert, history } = this.props
     axios({
       url: apiUrl + '/create-instrument',
@@ -47,8 +47,8 @@ class CreateInstrument extends Component {
         console.error(error)
         this.setState({ name: '',
           description: '',
-          rent: null,
-          sale: null,
+          rent: '',
+          sale: '',
           price: '',
           rate: '' })
         alert('Something went wrong, try again', 'danger')
@@ -62,8 +62,8 @@ class CreateInstrument extends Component {
   resetForm = () => this.setState({
     name: '',
     description: '',
-    rent: null,
-    sale: null,
+    rent: '',
+    sale: '',
     price: '',
     rate: ''
   })
@@ -94,28 +94,22 @@ class CreateInstrument extends Component {
             onChange={this.handleChange}
           />
         </Form.Group>
-        <Form.Group controlId="rent">
-          <Form.Label>Rent</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="For Rent?"
-            required
-            name="rent"
-            value={this.rent}
-            onChange={this.handleChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="sale">
-          <Form.Label>Sale</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="For Sale?"
-            required
-            name="sale"
-            value={this.sale}
-            onChange={this.handleChange}
-          />
-        </Form.Group>
+        <Form>
+          {['radio'].map(type => (
+            <div key={`inline-${type}`} className="mb-3">
+              <Form.Check inline label="For Rent"
+                type={type}
+                id={`inline-${type}-1`}
+                value={this.rent}
+                onChange={event.target.checked} />
+              <Form.Check inline label="For Sale"
+                type={type}
+                id={`inline-${type}-2`}
+                value={this.sale}
+                onChange={event.target.checked}/>
+            </div>
+          ))}
+        </Form>
         <Form.Group controlId="price">
           <Form.Label>Price</Form.Label>
           <Form.Control

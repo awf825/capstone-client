@@ -55,18 +55,20 @@ class Instruments extends Component {
               <h4>{instrument.name}</h4>
               <Button
                 variant="info"
-                href={'#instruments/' + instrument.id}>
+                href={'#instruments/' + instrument.id}
+                className= "m-2">
                 Info
               </Button>
               <Button
                 variant="danger"
-                onClick={() => this.handleDelete(instrument.id)}>
+                onClick={() => this.handleDelete(instrument.id)}
+                className= "m-2">
                 Delete
               </Button>
               <Button
                 variant="secondary"
                 href={'#instruments/' + instrument.id + '/edit'}
-              >
+                className= "m-2">
                 Update
               </Button>
             </ListGroup.Item>))}

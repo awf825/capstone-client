@@ -46,7 +46,6 @@ class SignIn extends Component {
           type="email"
           name="email"
           value={email}
-          placeholder="Email"
           onChange={this.handleChange}
         />
         <label htmlFor="password">Password</label>
@@ -55,7 +54,6 @@ class SignIn extends Component {
           name="password"
           value={password}
           type="password"
-          placeholder="Password"
           onChange={this.handleChange}
         />
         <button type="submit">Sign In</button>
