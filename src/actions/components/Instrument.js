@@ -25,7 +25,6 @@ class Instrument extends Component {
 
   render () {
     const { instrument } = this.state
-    console.log('DATA', event)
     return (
       <Fragment>
         <div className='link-display'>
@@ -35,7 +34,7 @@ class Instrument extends Component {
           <p>{instrument.sale ? 'For Sale' : '' }</p>
           <p>Price: {instrument.price}</p>
           <p>Daily Rate: {instrument.rate}</p>
-          <Link to='/'>Back to all items</Link>
+          <Link to='/' className="link">Back to all items</Link>
         </div>
       </Fragment>
     )

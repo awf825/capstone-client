@@ -80,13 +80,14 @@ class CreateInstrument extends Component {
     this.setState({ instrument: editedCheckbox })
   }
 
-  resetForm = () => this.setState({
+  resetForm = () => this.setState({ instrument: {
     name: '',
     description: '',
-    rent: false,
-    sale: false,
+    rent: { checked: false },
+    sale: { checked: false },
     price: '',
     rate: ''
+  }
   })
 
   render () {
