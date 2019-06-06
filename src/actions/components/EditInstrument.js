@@ -10,7 +10,14 @@ class EditInstrument extends Component {
     super(props)
 
     this.state = {
-      instrument: null
+      instrument: {
+        name: '',
+        description: '',
+        rent: { checked: false },
+        sale: { checked: false },
+        price: '',
+        rate: ''
+      }
     }
   }
 
@@ -35,6 +42,7 @@ class EditInstrument extends Component {
   handleEdit = (event, id) => {
     event.preventDefault()
     const { alert, user } = this.props
+    const { instrument } = this.state
     axios({
       url: `${apiUrl}/instruments/${id}/`,
       method: 'PATCH',
@@ -43,27 +51,53 @@ class EditInstrument extends Component {
       },
       data: {
         instrument: {
-          name: this.state.name,
-          description: this.state.description,
-          rent: this.state.rent,
-          sale: this.state.sale,
-          price: this.state.price,
-          rate: this.state.rate
+          name: instrument.name,
+          description: instrument.description,
+          rent: instrument.rent.checked,
+          sale: instrument.sale.checked,
+          price: instrument.price,
+          rate: instrument.rate
         }
       }
     })
-      .then(() => alert(`You updated ${this.state.name}`, 'success'))
+      .then(() => alert(`You updated ${instrument.name}`, 'success'))
       .then(() => this.props.history.push('/'))
       .catch(error => {
         console.error(error)
-        this.setState({ name: '', description: '', rent: '', sale: '', price: '', rate: '' })
-        alert('Something went wrong, try again', 'danger')
+        this.setState({ instrument: {
+          name: '',
+          description: '',
+          rent: false,
+          sale: false,
+          price: '',
+          rate: ''
+        }
+        })
+        alert('You still can\'t change this...', 'danger')
       })
   }
 
-  handleChange = event => this.setState({
-    [event.target.name]: event.target.value
-  })
+  handleChange = event => {
+    const updatedField = {
+      [event.target.name]: event.target.value
+    }
+
+    const editedInstrument =
+    Object.assign(this.state.instrument, updatedField)
+
+    this.setState({ instrument: editedInstrument })
+  }
+
+  handleCheck = event => {
+    const updatedCheckbox = {
+      [event.target.name]: { checked: (event.target.checked) }
+    }
+
+    const editedCheckbox =
+    Object.assign(this.state.instrument, updatedCheckbox)
+
+    this.setState({ instrument: editedCheckbox })
+  }
 
   resetForm = () => this.setState({
     name: '',
@@ -101,27 +135,21 @@ class EditInstrument extends Component {
             onChange={this.handleChange}
           />
         </Form.Group>
-        <Form.Group controlId="rent">
-          <Form.Label>Rent</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="For Rent?"
-            required
-            name="rent"
-            value={this.rent}
-            onChange={this.handleChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="sale">
-          <Form.Label>Sale</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="For Sale?"
-            required
-            name="sale"
-            value={this.sale}
-            onChange={this.handleChange}
-          />
+        <Form.Group controlId="Rent or Sale">
+          <div className="mb-3">
+            <Form.Check inline label="For Rent"
+              type="checkbox"
+              name="rent"
+              checked={instrument.rent.checked}
+              onChange={this.handleCheck} />
+          </div>
+          <div className="mb-3">
+            <Form.Check inline label="For Sale"
+              type="checkbox"
+              name="sale"
+              checked={instrument.sale.checked}
+              onChange={this.handleCheck} />
+          </div>
         </Form.Group>
         <Form.Group controlId="price">
           <Form.Label>Price</Form.Label>

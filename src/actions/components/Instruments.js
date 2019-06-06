@@ -41,7 +41,7 @@ class Instruments extends Component {
   }
 
   render () {
-    const { user } = this.props
+    const { alert, user } = this.props
     const { instruments } = this.state
     return (
       <Fragment>
@@ -67,6 +67,11 @@ class Instruments extends Component {
               </Button>
               <Button
                 variant="secondary"
+                onClick={function () {
+                  if (user.id !== instrument.user_id) {
+                    alert(messages.updateFailure, 'danger')
+                  }
+                }}
                 href={'#instruments/' + instrument.id + '/edit'}
                 className= "m-2">
                 Update

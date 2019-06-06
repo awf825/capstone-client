@@ -31,8 +31,8 @@ class Instrument extends Component {
         <div className='link-display'>
           <p>{instrument.name}</p>
           <p>{instrument.description}</p>
-          <p>{instrument.sale}</p>
-          <p>{instrument.rent}</p>
+          <p>{instrument.rent ? 'For Rent' : '' }</p>
+          <p>{instrument.sale ? 'For Sale' : '' }</p>
           <p>Price: {instrument.price}</p>
           <p>Daily Rate: {instrument.rate}</p>
           <Link to='/'>Back to all items</Link>
