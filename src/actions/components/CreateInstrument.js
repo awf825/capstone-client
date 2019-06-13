@@ -15,7 +15,8 @@ class CreateInstrument extends Component {
         rent: { checked: false },
         sale: { checked: false },
         price: '',
-        rate: ''
+        rate: '',
+        contact: ''
       }
     }
   }
@@ -37,7 +38,8 @@ class CreateInstrument extends Component {
           rent: instrument.rent.checked,
           sale: instrument.sale.checked,
           price: instrument.price,
-          rate: instrument.rate
+          rate: instrument.rate,
+          contact: instrument.contact
         }
       }
     })
@@ -51,7 +53,8 @@ class CreateInstrument extends Component {
           rent: false,
           sale: false,
           price: '',
-          rate: ''
+          rate: '',
+          contact: ''
         }
         })
         alert('Something went wrong, try again', 'danger')
@@ -86,7 +89,8 @@ class CreateInstrument extends Component {
     rent: { checked: false },
     sale: { checked: false },
     price: '',
-    rate: ''
+    rate: '',
+    contact: ''
   }
   })
 
@@ -94,7 +98,6 @@ class CreateInstrument extends Component {
     const { instrument } = this.state
     return (
       <Form className='form' onSubmit={this.onCreateInstrument}>
-        <h3>Post:</h3>
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -152,6 +155,17 @@ class CreateInstrument extends Component {
             required
             name="rate"
             value={instrument.rate}
+            onChange={this.handleChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="contact">
+          <Form.Label>Contact</Form.Label>
+          <Form.Control
+            type="string"
+            placeholder="Contact"
+            required
+            name="contact"
+            value={instrument.contact}
             onChange={this.handleChange}
           />
         </Form.Group>

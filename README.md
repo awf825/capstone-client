@@ -58,8 +58,8 @@ Future improvements:
 ## Links and Pictures
 ERD:
 ![Screen Shot 2019-06-09 at 2 02 08 PM](https://user-images.githubusercontent.com/48140926/59162550-d1386a00-8ac0-11e9-8b35-c3d463a7961a.png)
-Front-end Wireframe:
 
+Front-end Wireframe:
 ![Screen Shot 2019-06-09 at 2 01 08 PM](https://user-images.githubusercontent.com/48140926/59162554-e1504980-8ac0-11e9-8dbf-a255ef87a8fe.png)
 
 Deployed app: https://awf825.github.io/capstone-client/

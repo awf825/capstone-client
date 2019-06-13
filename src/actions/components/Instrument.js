@@ -12,7 +12,8 @@ class Instrument extends Component {
         rent: this.props.match.params.rent,
         sale: this.props.match.params.sale,
         price: this.props.match.params.price,
-        rate: this.props.match.params.rate
+        rate: this.props.match.params.rate,
+        contact: this.props.match.params.contact
       }
     }
   }
@@ -34,6 +35,7 @@ class Instrument extends Component {
           <p>{instrument.sale ? 'For Sale' : '' }</p>
           <p>Price: {instrument.price}</p>
           <p>Daily Rate: {instrument.rate}</p>
+          <p>Contact: {instrument.contact}</p>
           <Link to='/' className="link">Back to all items</Link>
         </div>
       </Fragment>

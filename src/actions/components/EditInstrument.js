@@ -16,7 +16,8 @@ class EditInstrument extends Component {
         rent: { checked: false },
         sale: { checked: false },
         price: '',
-        rate: ''
+        rate: '',
+        contact: ''
       }
     }
   }
@@ -56,7 +57,8 @@ class EditInstrument extends Component {
           rent: instrument.rent.checked,
           sale: instrument.sale.checked,
           price: instrument.price,
-          rate: instrument.rate
+          rate: instrument.rate,
+          contact: instrument.contact
         }
       }
     })
@@ -70,7 +72,8 @@ class EditInstrument extends Component {
           rent: false,
           sale: false,
           price: '',
-          rate: ''
+          rate: '',
+          contact: ''
         }
         })
         alert('You still can\'t change this...', 'danger')
@@ -105,7 +108,8 @@ class EditInstrument extends Component {
     rent: { checked: false },
     sale: { checked: false },
     price: '',
-    rate: ''
+    rate: '',
+    contact: ''
   }
   })
 
@@ -113,7 +117,6 @@ class EditInstrument extends Component {
     const { instrument } = this.state
     return (
       <Form className='form' onSubmit={(e) => this.handleEdit(e, instrument.id)}>
-        <h3>Edit:</h3>
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -171,6 +174,17 @@ class EditInstrument extends Component {
             required
             name="rate"
             value={this.rate}
+            onChange={this.handleChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="contact">
+          <Form.Label>Contact</Form.Label>
+          <Form.Control
+            type="string"
+            placeholder="Contact"
+            required
+            name="contact"
+            value={instrument.contact}
             onChange={this.handleChange}
           />
         </Form.Group>
