@@ -12,6 +12,7 @@ import Instruments from './actions/components/Instruments'
 import Instrument from './actions/components/Instrument'
 import CreateInstrument from './actions/components/CreateInstrument'
 import EditInstrument from './actions/components/EditInstrument'
+import MyInstruments from './actions/components/MyInstruments'
 
 import Alert from 'react-bootstrap/Alert'
 
@@ -59,6 +60,9 @@ class App extends Component {
           <Route exact path='/instruments/:id' component={Instrument}/>
           <AuthenticatedRoute user={user} path='/create-instrument' render={() => (
             <CreateInstrument user={user} alert={this.alert} />
+          )} />
+          <AuthenticatedRoute user={user} path='/myinstruments' render={() => (
+            <MyInstruments user={user} alert={this.alert} />
           )} />
           <AuthenticatedRoute user={user} exact path='/instruments/:id/edit' render={() => (
             <EditInstrument user={user} alert={this.alert} />

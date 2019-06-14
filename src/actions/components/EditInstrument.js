@@ -76,7 +76,6 @@ class EditInstrument extends Component {
           contact: ''
         }
         })
-        alert('You still can\'t change this...', 'danger')
       })
   }
 
@@ -120,7 +119,7 @@ class EditInstrument extends Component {
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control
-            type="text"
+            type="string"
             placeholder="Enter Name"
             required
             name="name"
@@ -131,7 +130,7 @@ class EditInstrument extends Component {
         <Form.Group controlId="description">
           <Form.Label>Description</Form.Label>
           <Form.Control
-            type="text"
+            type="string"
             placeholder="Description"
             required
             name="description"
@@ -158,7 +157,7 @@ class EditInstrument extends Component {
         <Form.Group controlId="price">
           <Form.Label>Price</Form.Label>
           <Form.Control
-            type="string"
+            type="integer"
             placeholder="Price"
             required
             name="price"

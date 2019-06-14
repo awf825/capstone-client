@@ -3,8 +3,6 @@ import { Link, withRouter } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import ListGroup from 'react-bootstrap/ListGroup'
-import Button from 'react-bootstrap/Button'
-import messages from '../messages'
 class Instruments extends Component {
   constructor (props) {
     super(props)
@@ -18,30 +16,8 @@ class Instruments extends Component {
     this.setState({ instruments: response.data.instruments })
   }
 
-  handleDelete = (id) => {
-    const { alert, user } = this.props
-    axios({
-      url: `${apiUrl}/instruments/${id}`,
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Token token=${user.token}`
-      }
-    })
-      .then(() => {
-        axios(`${apiUrl}/instruments`)
-          .then(res => {
-            this.setState({ instruments: res.data.instruments })
-          })
-          .then(() => alert(messages.deleteSuccess, 'success'))
-      })
-      .catch(error => {
-        console.error(error)
-        alert(messages.deleteFailure, 'danger')
-      })
-  }
-
   render () {
-    const { alert, user } = this.props
+    const { user } = this.props
     const { instruments } = this.state
     return (
       <Fragment>
@@ -50,34 +26,7 @@ class Instruments extends Component {
           {!user && <p className="m-0">Sign in to Post Items</p>}
         </div>
         <ListGroup>
-          {user && instruments.map((instrument, i) => (
-            <ListGroup.Item key={i}>
-              <h4>{instrument.name}</h4>
-              <Button
-                variant="info"
-                href={'#instruments/' + instrument.id}
-                className= "m-2">
-                Info
-              </Button>
-              <Button
-                variant="danger"
-                onClick={() => this.handleDelete(instrument.id)}
-                className= "m-2">
-                Delete
-              </Button>
-              <Button
-                variant="secondary"
-                onClick={function () {
-                  if (user.id !== instrument.user_id) {
-                    alert(messages.updateFailure, 'danger')
-                  }
-                }}
-                href={'#instruments/' + instrument.id + '/edit'}
-                className= "m-2">
-                Update
-              </Button>
-            </ListGroup.Item>))}
-          {!user && instruments.map((instrument, i) => (
+          {instruments.map((instrument, i) => (
             <ListGroup.Item key={i}>
               <Link to={`/instruments/${instrument.id}`}>{instrument.name}</Link>
             </ListGroup.Item>))}
